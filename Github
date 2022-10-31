@@ -1,0 +1,61 @@
+cd Downloads/
+ ssh link
+ yes
+ sudo su
+ cd
+ hostname
+ hostnamectl set-hostname git
+ bash
+ cd
+ yum install git –y   TO INSTALL GIT
+ systemctl start git
+ git init
+ git status
+ touch file1
+ git add file1
+ git add *
+ git config --gobal --list
+ git config --gobal  user.name mohan
+ git config --gobal user .email mohaneng0011@gmail.com
+ git config --gobal --list
+ git commit –m “first commit”
+ git log
+ git remote –v
+ git remote add origin link   
+ git remote –v
+ git push
+ git push –set-upstream origin master
+ touch file2
+ git add file2
+ git status
+ Vi file2  FOR CLOSE esc :wq
+ git commit -m “second commit”
+ git push 
+ git branch
+ git branch south
+ git checkout south
+ git push 
+ git push --set-upstream origin south
+ git merge south
+ git commit –m “merge south with master”
+ git push
+ git branch –d south
+ git clone link
+ ls –ltr
+ vim pom.xml
+ Vim azure-pipelines-1.yum
+ git fetch south
+ git pull south
+ git fetch link
+ git pull LINK
+ git logs
+ git log --oneline --graph
+ History 
+ git reset [commit]
+ Ping  TO STOP PING (ctrl + c)
+ git stash save
+ git stash pop
+ git stash show
+ git stash stash@{0}
+ 
+ 
