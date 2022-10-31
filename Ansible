@@ -1,0 +1,409 @@
+
+cd Downloads/ 
+ ssh link
+ yes
+ sudo su
+ cd
+ hostname
+ hostnamectl set-hostname git
+ bash
+ Cd
+ yum install ansible –y
+ sudo amazon-linux-extras install ansible2
+ useradd ansible
+ passwd ansible
+ hostname -I
+ ping 172.31.0.158
+ vi /etc/ssh/sshd_config 
+Esc + :set number
+Step 38 – delete #
+Step 61 – delete #
+Press I to edit
+Step 63 – add #
+Esc + :wq
+ systemctl restart sshd
+systemctl status sshd.service
+visudo
+step101- ansible ALL=(ALL)       NOPASSWD: ALL
+su – ansible
+logout
+ su – ansible
+ssh-keygen
+enter 3 times
+hostname –I
+ssh-copy-id ansible@172.31.32.74
+yes
+password 
+ sudo vi /etc/ansible/hosts
+[PRODDB]
+IP ADDRESS
+ansible -m ping PRODDB
+ansible –m user –a “name=mohan” PRODDB 
+ansible –m user –a “name=mohan” PRODDB –b  allow the previlage
+ssh-copy-id ansible@172.32.15.158
+12345
+ssh-keygen
+cd ~/.ssh
+ls –ltr
+cat id_rsa
+ssh-copy-id ansible@ipadress
+cat authorized_keys  worker uses
+sudo vi /etc/ansible/hosts
+tail –n 4 /etc/ansible/hosts
+ansible –m ping PRODDB
+uptime
+ansible MOHAN –m command –a uptime  inventory
+ansible MOHAN -m command -a "ls -l"
+ansible MOHAN -m command -a "lsblk"
+ansible MOHAN -m command -a "pwd"
+ansible MOHAN -m command -a "lscpu"
+ansible MOHAN -m command -a "free"
+ansible MOHAN -m command -a "top"error
+ansible MOHAN -m shell -a "top" error
+ansible MOHAN -m command -a "vmstat" --> virual machine status
+ansible MOHAN -m command -a "iostat"  input output status
+ansible MOHAN -m shell -a uptime
+ansible MOHAN -m command -a uptime
+ansible MOHAN -a uptime
+ansible MOHAN -a iostat
+ansible MOHAN -m shell -a "cat /proc/meminfo|head -2"  get physical memory allocated to host
+ansible MOHAN -m shell -a "cat /etc/passwd|grep -i mohan" --ask-sudo-pass error  execute command as root
+ansible MOHAN -m shell -a "cat /etc/passwd|grep -i mohan"  error
+ansible MOHAN -m shell -a "cat /etc/passwd|grep -i ec2-user"
+ansible MOHAN -m shell -a "cat /etc/passwd|grep -i root"
+ansible MOHAN -m shell -a "cat /etc/passwd|grep  ROOT"  error
+ansible MOHAN -m shell -a "cat /etc/passwd|grep  -i ROOT" 
+ansible MOHAN -m group -a "name=weblogic state=present" error
+ansible MOHAN -m group -a "name=weblogic state=present" –b  user,grep,others
+ansible MOHAN -m user -a "name=weblogic group=weblogic createhome=yes" –b  -b used for become root user
+ansible MOHAN -m file -a "path=/opt/oracle state=directory mode=0755" –b
+ansible MOHAN -m yum -a "name=httpd state=installed"  error
+ansible MOHAN -m yum -a "name=httpd state=installed" –b
+ansible MOHAN -m yum -a "name=httpd state=absent" –b  error
+ansible MOHAN -m yum -a "name=httpd state=absentd" –b
+ansible MOHAN -m service -a "name=httpd state=stop enabled=yes"  error
+ansible MOHAN -m service -a "name=httpd state=stopped enabled=yes"  error
+ansible MOHAN -m yum -a "name=httpd state=installed" –b
+ansible MOHAN -m service -a "name=httpd state=stopped enabled=yes"  error
+ansible MOHAN -m service -a "name=httpd state=started enabled=yes"  error
+ansible MOHAN -m service -a "name=httpd state=started enabled=yes" –b 
+cronguru .com
+crontab.guru
+COMMAND
+ansible –m command –a “time” MOHAN
+ansible –m shell –a “cat /etc/passwd | grep –I mohan”
+ansible –m user –a “name=webserver” MOHAN
+ansible –m yum –a “name=httpd state=installed” MOHAN –b
+ansible –m service –a “name=httpd state=started” MOHAN –b
+ansible –m copy –a “src=/etc/ssh/sshd.config”
+ansible –m copy –a “scr=/tmp/file.txt dest=/home/mohan”
+ansible –m file –a “chmod rwx”
+ansible –m file –a “chown mohan”
+PLAY BOOK  HUMAN READABLE PLAIN TEXT
+HANDLER TASKS IT IS SPECIAL TASKS THAT RUN AT THE END OF A PLAY IF NOTIFIED BY ANOTHER TASK WHEN CHANGE OCCURS   1) IF A CONFI FILE GETS CHANGED NOTIFY A SERVICE RESTART TASK THAT IT NEEDS TO RUN
+Mkdir mohan  create simple folder
+Ls –l  file shown
+Cd mohan  enter into the file
+Vim java.yaml
+Open file
+- hosts: MOHAN
+  tasks: 
+  – name: Install the java by mohan
+    yum:
+      name: java
+      state: installed
+Esc+:wq
+Cat java.ymal
+Ansible-doc yum | grep –I EXAMPLES –A 20  IF DOUBT IS THERE VERIFY YMAL FILES
+Ansible-doc copy | grep –I EXAMPLES –A 20
+Ls –l
+Chmod +x java.yaml
+Ls –l
+Ansible-playbook java.yaml –syntax-check
+Tail –n 5 /etc/ansible/hosts
+Ansible-playbook java.yaml  error
+Ansible-playbook java.yaml –b
+Cd local path  team user
+Rsync –avz
+Rsync –avz yaml.tar ansible@ipadress:/home/ansible  remote synchronic --> local desktop file
+Passwd:12345
+Ls –ltr  to search files
+tar –xvf yaml.tar  to extra the file
+cd YML/
+ls –ltr
+ls
+vim httpd.yml
+---  these is for user identification
+– host: MOHAN  manitry \ before UAT  user acceptance test just exmp
+  become: yes
+  remote_user: ansible
+  become_method: sudo
+  tasks:  manitry
+  - name: install the lastest version of apache
+    yum:   manitry
+      name: mod_ssl   ssl package
+      State: lastest
+Esc+wq
+Ansible-playbook httpd.yml -–syntax-check  error because of hostname \ playbook  name  which I created
+Tail –n 4 /etc/ansible/hosts  for checking errors
+Tail –n 4 /etc/ansible/hosts  for recheck error clear \ bottom of 4 lines show me
+Cat httpd.yml
+---
+– hosts: MOHAN
+  become: yes
+  Remote_user: ansible
+  Become_method: sudo
+  Tasks:
+  - name: install the lastest version of apache
+    Yum:
+      Name: mod_ssl
+     State: latest
+Ansible-playbook httpd.yml –vvv    to check the json format
+Cat loop-ansible.yml  if cat with yml file it will show program
+---
+– name: Test
+  hosts: MOHAN
+  become: Yes
+ 
+    Tasks:
+     - name: My install
+ Yum:
+      Name: “{{ item }}”
+      State:  latest
+   With_items:
+   - httpd
+   - mod_wsgi
+Cat loopineff.yml
+Cat loop.yml
+If don’t known the hostname give all [ MOHAN , DATABASE, UAI, QA, TEST]
+IF YOU NEED ONLY ONE SERVER USE EXAMPLE DATABASE (OR) QA
+Ansible-playbook loop.yml –b
+Ansible-playbook loop.yml –b –v  for seeing data int output \ to increase the v 
+Cat myservice.yml
+Vi myservice.yml
+Ansible-playbook myservice.yml -–syntax-check
+Ansible-playbook myservice.yml  error because we have to pass –b
+Ansible-playbook myservice.yml –b
+Ls
+Cat mysl.yml
+Cat myyum.yml
+Cat network_files.yml
+Ansible-playbook networkfile.yml –b  error
+Vi network.yml
+---
+–hosts:  MOHAN
+  Task:
+STEPS MOVE 2 STEP BACK
+Ansible-playbook networkfile.yml –b  ERROR
+Ansible-doc copy | grep –i EXAMPLES –A 20  IF YOU DOUBT TO CHECK 
+Ansible-doc copy | grep –i EXAMPLES | grep –I content  no content awayable
+Ansible-doc copy | grep –i content
+Ansible-doc copy | grep –i content –A 5
+Cat register_delta.yml
+Touch hi.txt
+Ansible-playbook register_delta.yml  error
+Mkdir /tmp/hello  add directory
+Cd /tmp/hello
+Touch hi.txt
+Touch hello.txt
+Touch my xyz  not added
+Pwd
+Cat register_delta.yml  error
+Cd -
+Cat register_delta.yml
+Ansible-playbook register_delta.yml
+Cat register _stdlines.yml
+Cat register_stdout.yml
+ls
+cat
+Cat register _stdlines.yml
+Cat register_stdout.yml
+Vi register _stdlines.yml
+Ansible-playbook register _stdlines.yml
+Cd /tmp/hello
+Ls
+Cd ..
+Cd –
+Cd /home/ansible/
+ls
+cd yml/
+ls
+Ansible-playbook register _stdlines.yml -v
+Cat replace_hello.yml
+Cat replace_string.yml
+Cat replace.yml
+Ansible-doc replace  for example of  replace module
+Ansible-doc replace | grep –i Examples –A  20
+Ansible-doc –l | wc –l
+ansible-doc –l
+ansible-doc –l | grep –i azure
+ansible-doc –l | grep –i aws
+ansible-doc –l | grep –i gcp
+ansible-doc –l | grep –I ibm
+ansible-doc –l | grep –I load
+ansible-doc –l | grep –I network
+ansible-doc –l | grep –I docker
+ansible-doc –l | grep –I Jenkins
+ansible-doc  docker_container| grep –I Examples –A 20
+inside ansible you should give sudo
+sudo yum install docker –y
+sudo systemctl start docker
+vi containermohan.yaml
+–hosts:all(or)MOHAN
+   Tasks:
+esc:wq
+ansible-playbook containermohan.yaml –b error
+sudo pip install docker  error
+sudo yum install pip pip3
+ansible-playbook containermohan.yaml –b  error
+sudo pip install docker
+ansible-playbook containermohan.yaml –b  error
+sudo pip install docker-py
+ansible-playbook containermohan.yaml –b  success
+cat replace_hello.yml
+mkdir –p /tmp/hello/replace/intext_hello.txt path
+vi / tmp/hello/replace/intext_hello.txt
+esc+:q
+cd / tmp/hello/replace/
+vi intext_hello.txt
+esc+:q!
+rm –rf intext_hello.txt/
+vi intext_hello.txt
+cat intext_hello.txt
+cd –
+ansible-playbook replace_hello.yml –b
+cd –
+ls –l
+cat intext_hello.txt
+cd –
+cat replace_hello.yml
+ls
+cat secpasswd.yaml
+ansible-vault view secpasswd.yaml
+passwd:123456
+vi secr_word.yaml
+cat secr_word.yaml
+ansible-vault create secr
+ansible-vault create secr_word.yaml
+ansible-vault encrypt secr_word.yaml
+         ANSIBLE VAULT
+create  new file
+encrypt  exsiting file
+view  display the file
+cat secr_word.yaml  to display the key
+YOU WANT TO DECRYPT
+ansible-vault view secr_word.yaml
+cat tag.yml  use for which package you want you can download easly
+chg HOST NAME
+ansible-playbook tag.yml  it will install all
+ansible-playbook tag.yml --skip-tag git  it will skip which you don’t want
+ansible-playbook tag.yml --skip-tag,mod  it also working to install frst one
+ansible-playbook tag.yml  --tag git  now successfully install only git
+cat tag.yml
+cat web01.yml  it is simply to install packages
+cat weblogic.yml  these is how to install java
+cat fetch-copy.yml  copy module is used to master to worker  fetch module is used to worker to master
+vi fetch-copy yml
+cat fetch-copy.yml
+ansible-doc fetch | grep –i flat
+ansible-doc fetch | grep –i flat Example –A 5
+touch /tmp/indexworker.html
+mkdir /sep  error
+sudo mkdir /sep
+cd /sep
+ls
+pwd
+cd /var
+ls
+cd –
+cd
+cd yml/
+ls
+ansible-playbook fetch-copy.yml –b  error
+vi fetch-copy.yml
+last 2 line hide using #
+now check ansible-playbook fetch-copy.yml –b  error
+cd /tmp
+ls –l
+chown –R root:root indexworker.html  not nessery
+chmod 777 indexworker.html
+cd –
+ansible-playbook fetch-copy.yml –b  error
+sudo chown –R root:root indexworker.html  now ownship is chsnged to ansible to root
+ansible-playbook fetch-copy.yml –b  error
+cd
+ls –l /sep
+ls –l /
+sudo chown –R ansible:ansible /sep now ownship is chsnged to root to ansible
+ls –l /
+ansible-playbook fetch-copy.yml –b  success
+vi fetch-copy.yml  remove #
+ansible-playbook fetch-copy.yml –b
+cd 
+cd-
+ls –l
+ls
+cat create_user_loop_user_id.yml  how to create user id
+vi create_ user_loop_user_id.yml
+ansible-playbook create_ user_loop_user_id.yml -b
+how to check id is available or not 
+id name
+sudo useradd mohan now user id is added
+vi create_ user_loop_user_id.yml  if you chg the program present to absent all user id should be deleted
+ansible-playbook create_ user_loop_user_id.yml -b
+NOW CHECK ID ARE DELETED
+Id name
+Ls
+Cat awsall.yml
+Vi awsall.yml
+IAM – MEANS IDENTITY ACCESS MANAGER
+GO TO AWS IAM ADD USER USERNAME ACCESS OK NEXT 
+ATTACH EXISTING ADMINSTRATOR ACCESS NEXT NEXT NEXT
+DOWNLOAD CSV
+Ls –l
+Vi ec2.yml
+Copy IAM user access key
+Change access key
+Copy IAM user secret key
+Change secret key
+Now got aws access
+Now OPEN AWS INSTANCE 
+OPEN OLD METHOD
+Step 1-COPY AMAZON LINUX 2 AMI IMAGE ID
+EXAMPLE – ami-06499866022e12a14
+Change Image id 
+Step 6 – copy group id 
+Example – sg-089724356
+Change group id
+Change region – ap-south-1
+Change exact_count: 2 (or) how many you need you can creat
+PACKAGES NEED TO INSTALL
+Sudo yum install pip –y
+Pip install boto3
+Pip install botocore
+Sudo vi /etc/ansible/hosts
+# localhost ansible_connection=local
+# ansible_python_interpreter=/usr/bin/python3
+Edit remove #
+Cat ec2.yaml
+Ansible-playbook ec2.yaml –b  how many time I run these playbook instance are creating
+Now success
+HOW TO USE GALAXY
+Ansible-galaxy init role_name
+Ansible-galaxy init apache  apache is a file name
+Ls –l 
+Cd apache/
+Ls –l
+Cd
+Tree apache/  error
+Sudo yum install tree –y
+Tree apache
+Cd apache/
+Ls
+Cd task
+Ls
+Vi main.yml
+Change hosts
+Ansible-galaxy search mysql
+
+
