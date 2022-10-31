@@ -1,0 +1,48 @@
+ls cd Downloads/
+ssh link
+yes
+sudo su     SWITCH TO SUPER USER
+cd        CHANGE TO DIRECTORY
+hostname       CHECK HOSTNAME
+hostnamectl set-hostname aws      CHANGE HOSTNAME
+Bash  FOR CONFIRMATION TO CHANGE (OR) KERNEL
+yum install httpd –y      INSTALL LINUX 1) YUM- YELLOW DOG UPDATE MANAGER
+systemctl start httpd     START CONTROL KEY 
+ls    DIRECTORY LISTING
+ls – la    HIDDEN FILES
+ls – l | grep –i (file name) 
+ls – l | grep –i file  | wc – l   FILTER + WORD COUNT 
+lsblk    LIST OF BLOCK SIZE & MOUNT POINTS  1) OPEN VOLUME IN AWS , 2) ADD VOLUME
+man ps   MANUAL PROCESS                                                                                      
+ps – ef | grep –i zoom    PROCESS AND FILTER 
+ind / - name file    FIND FILES SEPERATLY
+touch file {1..10}    ADD FILES
+chmod ugo+rwx file.txt   FOR 1 FILE TO ACCESS(u-USER,g-GROUP,o-OTHER) (r –READ , w-WRITE, x-EXECUTE,--CANCEL,+-ALLOW)
+chmod ugo-rwx file.txt    FOR 1 FILE TO UNACCESS
+chmod ugo+rwx *   FOR ALL FILES ACCESS
+chmod ugo-rwx *    FOR ALL FILES UNACCESS
+wget link   DOWNLOAD FILE
+unzip file.zip  
+cd filename/
+Cd.
+Cd..
+mv filename /var/www/html/   MOVE EXISTING DIRECTORY
+Curl localhost:1234
+In chrome ip address + file name
+Mkdir /CDRIVE
+Mkdir /DDRIVE
+Mount /dev/xvdf / CDRIVE
+mount /dev/xvdf /DDRIVE 
+Rpm  REDHAT PACKAGE MANAGER
+/-  ENTIER SERVER AND IDENTIFY NAME (OR) FILE
+Ping IP ADDRESS
+Clear (or) ctrl + l  TO CLEAR SCREEN
+Who
+Whoami
+W
+History
+ls – ltr | tail –n 2
+Chmod 400 aws_mumbai_pro.prem
+Rm file  DELET FILE
+Top  TASK MANAGER FOR LINK  APPLICATION SLOWNESS PROBLEM (OR) ISSUES 1) CPU ,        2) MEMORY , 3) NETWORK POCKET LOSS, 4) USERS, 5) DATA BASE 6) CROM JOB
+  
