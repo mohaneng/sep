@@ -1,0 +1,725 @@
+Authenticating with public key "Imported-Openssh-Key"
+    ┌──────────────────────────────────────────────────────────────────────┐
+    │                 • MobaXterm Personal Edition v22.1 •                 │
+    │               (SSH client, X server and network tools)               │
+    │                                                                      │
+    │ ⮞ SSH session to ec2-user@34.208.155.247                             │
+    │   • Direct SSH      :  ✓                                             │
+    │   • SSH compression :  ✓                                             │
+    │   • SSH-browser     :  ✓                                             │
+    │   • X11-forwarding  :  ✗  (disabled or not supported by server)      │
+    │                                                                      │
+    │ ⮞ For more info, ctrl+click on help or visit our website.            │
+    └──────────────────────────────────────────────────────────────────────┘
+
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-172-31-14-173 ~]$ sudo su
+[root@ip-172-31-14-173 ec2-user]# cd
+[root@ip-172-31-14-173 ~]# hostnamectl set-hostname docker
+[root@ip-172-31-14-173 ~]# bash
+[root@docker ~]# yum install docker -y
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                               | 3.7 kB     00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package docker.x86_64 0:20.10.17-1.amzn2 will be installed
+--> Processing Dependency: runc >= 1.0.0 for package: docker-20.10.17-1.amzn2.x8                                                         6_64
+--> Processing Dependency: libcgroup >= 0.40.rc1-5.15 for package: docker-20.10.                                                         17-1.amzn2.x86_64
+--> Processing Dependency: containerd >= 1.3.2 for package: docker-20.10.17-1.am                                                         zn2.x86_64
+--> Processing Dependency: pigz for package: docker-20.10.17-1.amzn2.x86_64
+--> Running transaction check
+---> Package containerd.x86_64 0:1.6.6-1.amzn2 will be installed
+---> Package libcgroup.x86_64 0:0.41-21.amzn2 will be installed
+---> Package pigz.x86_64 0:2.3.4-1.amzn2.0.1 will be installed
+---> Package runc.x86_64 0:1.1.3-1.amzn2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package        Arch       Version                  Repository             Size
+================================================================================
+Installing:
+ docker         x86_64     20.10.17-1.amzn2         amzn2extra-docker      39 M
+Installing for dependencies:
+ containerd     x86_64     1.6.6-1.amzn2            amzn2extra-docker      27 M
+ libcgroup      x86_64     0.41-21.amzn2            amzn2-core             66 k
+ pigz           x86_64     2.3.4-1.amzn2.0.1        amzn2-core             81 k
+ runc           x86_64     1.1.3-1.amzn2            amzn2extra-docker     2.9 M
+
+Transaction Summary
+================================================================================
+Install  1 Package (+4 Dependent packages)
+
+Total download size: 69 M
+Installed size: 260 M
+Downloading packages:
+(1/5): pigz-2.3.4-1.amzn2.0.1.x86_64.rpm                   |  81 kB   00:00
+(2/5): libcgroup-0.41-21.amzn2.x86_64.rpm                  |  66 kB   00:00
+(3/5): containerd-1.6.6-1.amzn2.x86_64.rpm                 |  27 MB   00:01
+(4/5): runc-1.1.3-1.amzn2.x86_64.rpm                       | 2.9 MB   00:00
+(5/5): docker-20.10.17-1.amzn2.x86_64.rpm                  |  39 MB   00:02
+--------------------------------------------------------------------------------
+Total                                               32 MB/s |  69 MB  00:02
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : runc-1.1.3-1.amzn2.x86_64                                    1/5
+  Installing : containerd-1.6.6-1.amzn2.x86_64                                                                                       2/5
+  Installing : libcgroup-0.41-21.amzn2.x86_64                                                                                        3/5
+  Installing : pigz-2.3.4-1.amzn2.0.1.x86_64                                                                                         4/5
+  Installing : docker-20.10.17-1.amzn2.x86_64                                                                                        5/5
+  Verifying  : docker-20.10.17-1.amzn2.x86_64                                                                                        1/5
+  Verifying  : runc-1.1.3-1.amzn2.x86_64                                                                                             2/5
+  Verifying  : pigz-2.3.4-1.amzn2.0.1.x86_64                                                                                         3/5
+  Verifying  : containerd-1.6.6-1.amzn2.x86_64                                                                                       4/5
+  Verifying  : libcgroup-0.41-21.amzn2.x86_64                                                                                        5/5
+
+Installed:
+  docker.x86_64 0:20.10.17-1.amzn2
+
+Dependency Installed:
+  containerd.x86_64 0:1.6.6-1.amzn2   libcgroup.x86_64 0:0.41-21.amzn2   pigz.x86_64 0:2.3.4-1.amzn2.0.1   runc.x86_64 0:1.1.3-1.amzn2
+
+Complete!
+[root@docker ~]# systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: https://docs.docker.com
+[root@docker ~]# systemctl start docker
+[root@docker ~]# systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled)
+   Active: active (running) since Thu 2022-09-29 15:30:52 UTC; 4s ago
+     Docs: https://docs.docker.com
+  Process: 3507 ExecStartPre=/usr/libexec/docker/docker-setup-runtimes.sh (code=exited, status=0/SUCCESS)
+  Process: 3506 ExecStartPre=/bin/mkdir -p /run/docker (code=exited, status=0/SUCCESS)
+ Main PID: 3510 (dockerd)
+    Tasks: 7
+   Memory: 20.8M
+   CGroup: /system.slice/docker.service
+           └─3510 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --default-ulimit nofile=32768:65536
+
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.324156663Z" level=info msg="ClientConn switching balancer to \"...le=grpc
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.359732564Z" level=warning msg="Your kernel does not support cgr...weight"
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.360152902Z" level=warning msg="Your kernel does not support cgr...device"
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.360598548Z" level=info msg="Loading containers: start."
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.588429479Z" level=info msg="Default bridge (docker0) is assigne...ddress"
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.664448307Z" level=info msg="Loading containers: done."
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.680850940Z" level=info msg="Docker daemon" commit=a89b842 graph...0.10.17
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.681339733Z" level=info msg="Daemon has completed initialization"
+Sep 29 15:30:52 docker systemd[1]: Started Docker Application Container Engine.
+Sep 29 15:30:52 docker dockerd[3510]: time="2022-09-29T15:30:52.706632924Z" level=info msg="API listen on /run/docker.sock"
+Hint: Some lines were ellipsized, use -l to show in full.
+[root@docker ~]# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: mohanaws
+Password:
+Error: Password Required
+[root@docker ~]# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: mohanaws
+Password:
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[root@docker ~]# docker search mohaneng
+NAME      DESCRIPTION   STARS     OFFICIAL   AUTOMATED
+[root@docker ~]# docker info | head
+Client:
+ Context:    default
+ Debug Mode: false
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+[root@docker ~]# docker search ritwick
+NAME                                      DESCRIPTION                                  STARS     OFFICIAL   AUTOMATED
+ritwickgupta/phlyt-demo-aws                                                            0
+ritwickgupta/phlyt-test                                                                0
+ritwicksamanta/mfpe-authorization         port:9001                                    0
+ritwickg2019/console-101                                                               0
+ritwickkumar/hello-world                                                               0
+ritwickg2019/hello-world-console                                                       0
+ritwickg2019/getstarted                                                                0
+ritwickraj016/newubuntu                                                                0
+ritwickg2019/docker-api                                                                0
+ritwickjoshi1003/docker101tutorial                                                     0
+ritwickroy/myapi                          tutorial for docker                          0
+ritwicksamanta/mfpe-networth-service      networth service runs on port 8000           0
+ritwicksamanta/mfpe-mutual-fund-service   port:8200                                    0
+ritwicksamanta/mfpe-eureka                Eureka naming server. running on port 8761   0
+ritwicksamanta/mfpe-daily-share-price     port:8100                                    0
+ritwick34/ritwickimageclassification                                                   0
+ritwickhalder/calendar-notes              Calendar Notes Application for CodeClouds    0
+[root@docker ~]# docker search vivekyoganand
+NAME                            DESCRIPTION              STARS     OFFICIAL   AUTOMATED
+vivekyoganand/nginxbebusy       Music Web Application    1
+vivekyoganand/homenew                                    0
+vivekyoganand/tomcat_war                                 0
+vivekyoganand/nginxbesports     Sports Web Application   0
+vivekyoganand/myyoga            myyoga                   0
+vivekyoganand/nginxbeyoga       nginxbeyoga              0
+vivekyoganand/estore                                     0
+vivekyoganand/nginxbeshopping   nginxbeshopping          0
+vivekyoganand/nginx_invites                              0
+vivekyoganand/bip               BIP                      0
+vivekyoganand/nginxbebio        nginxbebio               0
+vivekyoganand/tomcat_file       username_deployer        0
+vivekyoganand/seo               seo                      0
+vivekyoganand/nginx                                      0
+vivekyoganand/branding          branding                 0
+vivekyoganand/xyz                                        0
+vivekyoganand/vanilla                                    0
+vivekyoganand/busyboxwar                                 0
+vivekyoganand/acme                                       0
+vivekyoganand/myyogatest        myyogatest               0
+vivekyoganand/wood              wood                     0
+vivekyoganand/julybatch         julybatch                0
+vivekyoganand/aprbatch          aprbatch                 0
+[root@docker ~]# ^C
+[root@docker ~]# docker pull vivekyoganand/nginxbesports
+Using default tag: latest
+Error response from daemon: manifest for vivekyoganand/nginxbesports:latest not found: manifest unknown: manifest unknown
+[root@docker ~]# ^C
+[root@docker ~]# docker pull vivekyoganand/myyoga
+Using default tag: latest
+latest: Pulling from vivekyoganand/myyoga
+a330b6cecb98: Pull complete
+e0ad2c0621bc: Pull complete
+9e56c3e0e6b7: Pull complete
+09f31c94adc6: Pull complete
+32b26e9cdb83: Pull complete
+20ab512bbb07: Pull complete
+501b771b6ad4: Pull complete
+Digest: sha256:2812534446a251ee4f6203e48512a429566ea1a648c4c89429edff4d73aa0f7c
+Status: Downloaded newer image for vivekyoganand/myyoga:latest
+docker.io/vivekyoganand/myyoga:latest
+[root@docker ~]# docker images
+REPOSITORY             TAG       IMAGE ID       CREATED         SIZE
+vivekyoganand/myyoga   latest    9e3f579505ad   12 months ago   156MB
+[root@docker ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[root@docker ~]# docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[root@docker ~]# docker run -itd --name sports –net bridge –publish 8080:80 ^C
+[root@docker ~]# docker run -itd --name sports –net bridge –publish 8080:80 vivekyoganand/nginxbesports:sports
+docker: invalid reference format.
+See 'docker run --help'.
+[root@docker ~]# docker run -itd --name xyz -p 8080:80 vivekyoganand/myyoga
+ef616a33d1020c0a13cfe6c4c0788bb847c70f4962ebe716dbd763b3488172d7
+[root@docker ~]# docker container ls
+CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+ef616a33d102   vivekyoganand/myyoga   "/docker-entrypoint.…"   9 seconds ago   Up 8 seconds   0.0.0.0:8080->80/tcp, :::8080->80/tcp   xyz
+[root@docker ~]# docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+ef616a33d102   vivekyoganand/myyoga   "/docker-entrypoint.…"   19 seconds ago   Up 18 seconds   0.0.0.0:8080->80/tcp, :::8080->80/tcp   xyz
+[root@docker ~]# curl localhost:8080
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+[root@docker ~]# docker pull vivekyoganand/nginxbesports:sports
+sports: Pulling from vivekyoganand/nginxbesports
+f5d23c7fed46: Pull complete
+918b255d86e5: Pull complete
+8c0120a6f561: Pull complete
+c79540d9cd21: Pull complete
+Digest: sha256:1f18104772b71d91ff2eade4aee16c2f8fe1c7f2acf8beea4b449dea3c811df7
+Status: Downloaded newer image for vivekyoganand/nginxbesports:sports
+docker.io/vivekyoganand/nginxbesports:sports
+[root@docker ~]# docker run -itd --name sports --net bridge -publish 1234:80 vivekyoganand/nginxbesports:sports
+docker: Invalid containerPort: ublish.
+See 'docker run --help'.
+[root@docker ~]# docker run -itd --name sports --net bridge --publish 1234:80 vivekyoganand/nginxbesports:sports
+092ad3432345d328a0d83537a786a00efc11706bc637158e90ba0ca17b0b31ea
+[root@docker ~]# docker run -itd --name sports --net bridge --publish 808080:80 vivekyoganand/nginxbesports:sports
+docker: Invalid hostPort: 808080.
+See 'docker run --help'.
+[root@docker ~]# docker images
+REPOSITORY                    TAG       IMAGE ID       CREATED         SIZE
+vivekyoganand/myyoga          latest    9e3f579505ad   12 months ago   156MB
+vivekyoganand/nginxbesports   sports    2146794132d7   3 years ago     140MB
+[root@docker ~]# docker run -itd --name sports –net bridge –publish 8080:80 vivekyoganand/nginxbesports:sports
+docker: invalid reference format.
+See 'docker run --help'.
+[root@docker ~]# docker run -itd --name sports –net bridge –publish 8070:80 vivekyoganand/nginxbesports:sports
+docker: invalid reference format.
+See 'docker run --help'.
+[root@docker ~]# docker run -itd --name xyz -p 7070:80 vivekyoganand/nginxbesports:sports
+docker: Error response from daemon: Conflict. The container name "/xyz" is already in use by container "ef616a33d1020c0a13cfe6c4c0788bb847c70f4962ebe716dbd763b3488172d7". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+[root@docker ~]# docker run -itd --name sports -p 7070:80 vivekyoganand/nginxbesports:sports
+docker: Error response from daemon: Conflict. The container name "/sports" is already in use by container "092ad3432345d328a0d83537a786a00efc11706bc637158e90ba0ca17b0b31ea". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+[root@docker ~]# docker run -itd --name game -p 7070:80 vivekyoganand/nginxbesports:sports
+8f5859b4fdefd1f1440605c172908b7720d9418c4c51d4ee01cd8d3947132ee0
+[root@docker ~]# docker container ls
+CONTAINER ID   IMAGE                                COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+8f5859b4fdef   vivekyoganand/nginxbesports:sports   "nginx -g 'daemon of…"   13 seconds ago   Up 12 seconds   0.0.0.0:7070->80/tcp, :::7070->80/tcp   game
+092ad3432345   vivekyoganand/nginxbesports:sports   "nginx -g 'daemon of…"   8 minutes ago    Up 8 minutes    0.0.0.0:1234->80/tcp, :::1234->80/tcp   sports
+ef616a33d102   vivekyoganand/myyoga                 "/docker-entrypoint.…"   13 minutes ago   Up 13 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   xyz
+[root@docker ~]# curl -kv localhost:7070
+*   Trying 127.0.0.1:7070...
+* Connected to localhost (127.0.0.1) port 7070 (#0)
+> GET / HTTP/1.1
+> Host: localhost:7070
+> User-Agent: curl/7.79.1
+> Accept: */*
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: nginx/1.17.2
+< Date: Thu, 29 Sep 2022 17:18:46 GMT
+< Content-Type: text/html
+< Content-Length: 18301
+< Last-Modified: Fri, 02 Aug 2019 05:36:59 GMT
+< Connection: keep-alive
+< ETag: "5d43cbfb-477d"
+< Accept-Ranges: bytes
+<
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="TopGym Template">
+    <meta name="keywords" content="TopGym, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TopGym | Fitness HTML Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,700,900" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-menu">
+                        <div class="logo">
+                            <a href="./index.html">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <nav class="mobile-menu">
+                            <ul>
+                                <li><a href="./index.html">Home</a></li>
+                                <li><a href="./about-us.html">About us</a></li>
+                                <li><a href="./classes.html">Classes</a></li>
+                                <li><a href="./elements.html">Instructors</a></li>
+                                <li><a href="./blog.html">News</a></li>
+                                <li><a href="./contact.html">Contact</a></li>
+                                <li class="search-btn search-trigger"><i class="fa fa-search"></i></li>
+                            </ul>
+                        </nav>
+                        <div id="mobile-menu-wrap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <!-- Search Bar Begin -->
+    <section class="search-bar-wrap">
+        <span class="search-close"><i class="fa fa-close"></i></span>
+        <div class="search-bar-table">
+            <div class="search-bar-tablecell">
+                <div class="search-bar-inner">
+                    <h2>Search</h2>
+                    <form action="#">
+                        <input type="search" placeholder="Type Keywords">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Search Bar End -->
+    <!-- Top Social Begin -->
+    <div class="top-social">
+        <div class="top-social-links">
+            <ul>
+                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Top Social End -->
+    <!-- Hero Slider Section Begin -->
+    <section class="hero-slider">
+        <div class="slide-items owl-carousel">
+            <div class="single-slide set-bg active" data-setbg="img/bg.jpg">
+                <a href="https://www.youtube.com/watch?v=SEVuD_djKrU" class="play-btn pop-up"><i class="fa fa-play"></i></a>
+                <h1>Be Fit.Top Gym</h1>
+                <a href="#" class="primary-btn">Read More</a>
+            </div>
+            <div class="single-slide set-bg" data-setbg="img/bg-2.jpg">
+                <a href="https://www.youtube.com/watch?v=SEVuD_djKrU" class="play-btn pop-up"><i class="fa fa-play"></i></a>
+                <h1>Be Fit.Top Trainer</h1>
+                <a href="#" class="primary-btn">Read More</a>
+            </div>
+            <div class="single-slide set-bg" data-setbg="img/bg-3.jpg">
+                <a href="https://www.youtube.com/watch?v=SEVuD_djKrU" class="play-btn pop-up"><i class="fa fa-play"></i></a>
+                <h1>Be Fit.Top Body</h1>
+                <a href="#" class="primary-btn">Read More</a>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Slider End -->
+    <!-- Features Section Begin -->
+    <section class="features-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-features">
+                        <div class="features-img">
+                            <img src="img/features/feature-1.jpg" alt="">
+                        </div>
+                        <div class="feature-text">
+                            <div class="feature-icon">
+                                <img src="img/features/icon-1.png" alt="">
+                            </div>
+                            <h5>Amazing Setting</h5>
+                            <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis
+                                nulla pretium, vitae ornare leo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-features">
+                        <div class="features-img">
+                            <img src="img/features/feature-2.jpg" alt="">
+                        </div>
+                        <div class="feature-text">
+                            <div class="feature-icon">
+                                <img src="img/features/icon-2.png" alt="">
+                            </div>
+                            <h5>Best Trainers</h5>
+                            <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis
+                                nulla pretium, vitae ornare leo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-features">
+                        <div class="features-img">
+                            <img src="img/features/feature-3.jpg" alt="">
+                        </div>
+                        <div class="feature-text">
+                            <div class="feature-icon">
+                                <img src="img/features/icon-3.png" alt="">
+                            </div>
+                            <h5>Diet Plans</h5>
+                            <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis
+                                nulla pretium, vitae ornare leo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section End -->
+    <!-- Services Section Begin -->
+    <section class="services-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <span>Features</span>
+                        <h2>Services</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-service">
+                        <img src="img/icon-1.png" alt="">
+                        <h5>Pilates</h5>
+                        <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla
+                            pretium.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-service c-text">
+                        <img src="img/icon-2.png" alt="">
+                        <h5>Free Lifting</h5>
+                        <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla
+                            pretium.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-service">
+                        <img src="img/icon-3.png" alt="">
+                        <h5>Yoga</h5>
+                        <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla
+                            pretium.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-service">
+                        <img src="img/icon-4.png" alt="">
+                        <h5>Spinning</h5>
+                        <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla
+                            pretium.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-70">
+                <div class="col-lg-12 text-center">
+                    <a href="#" class="service-btn primary-btn">see all the services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+    <!-- Trainer Section Begin -->
+    <section class="trainer-section set-bg" data-setbg="img/trainer-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <span>The Best</span>
+                        <h2>Trainers</h2>
+                        <a href="#" class="primary-btn trainer-btn">See All</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-trainer">
+                        <div class="trainer-img">
+                            <img src="img/trainer/trainer-1.jpg" alt="">
+                            <div class="img-hover">
+                                <a href="#"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="trainer-text">
+                            <h5>Rachel Smith <span>Aerobics Instructor</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-trainer">
+                        <div class="trainer-img">
+                            <img src="img/trainer/trainer-2.jpg" alt="">
+                            <div class="img-hover">
+                                <a href="#"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="trainer-text">
+                            <h5>Micheal Williams <span>Aerobics Instructor</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-trainer">
+                        <div class="trainer-img">
+                            <img src="img/trainer/trainer-3.jpg" alt="">
+                            <div class="img-hover">
+                                <a href="#"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="trainer-text">
+                            <h5>James Brown <span>Aerobics Instructor</span></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Traniner Section End -->
+    <!-- Upcoming Event Begin -->
+    <section class="upcoming-event-section spad-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="upcoming-classes">
+                        <div class="up-title">
+                            <span>Next</span>
+                            <h5>Upcomming Classes</h5>
+                        </div>
+                        <ul class="classes-time">
+                            <li><img src="img/stopwatch.png" alt=""> Gym Fitness <span>11:00 - 12:00</span></li>
+                            <li><img src="img/stopwatch.png" alt=""> Pilates <span>12:00 - 13:00</span></li>
+                            <li><img src="img/stopwatch.png" alt=""> Spinning <span>13:00 - 14:00</span></li>
+                            <li><img src="img/stopwatch.png" alt=""> Yoga <span>14:00 - 15:00</span></li>
+                            <li><img src="img/stopwatch.png" alt=""> Gym Fitness <span>15:00 - 16:00</span></li>
+                            <li><img src="img/stopwatch.png" alt=""> Pilates <span>16:00 - 17:00</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="membership-card set-bg" data-setbg="img/m-card.jpg">
+                        <div class="membership-details">
+                            <div class="up-title">
+                                <span>Next</span>
+                                <h5>Membership Cards</h5>
+                            </div>
+                            <div class="discount">
+                                <h1>25% <span>Discount</span></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="member-sign-up set-bg" data-setbg="img/signup-bg.jpg">
+                        <div class="up-title">
+                            <span>New</span>
+                            <h5>Personal Trainer</h5>
+                        </div>
+                        <p>Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl quis nulla
+                            pretium.Pellentesque dictum nisl in nibh dictum volutpat nec a quam. Vivamus suscipit nisl
+                            quis nulla pretium.</p>
+                        <div class="member-signup-btn">
+                            <a href="#" class="primary-btn">Sign up Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Upcoming Event End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer-section set-bg" data-setbg="img/footer-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-content">
+                        <div class="footer-logo">
+                            <a href="#"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <div class="footer-menu">
+                            <ul>
+                                <li><a href="./index.html">Home</a></li>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Instructors</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="subscribe-form">
+                            <form action="#">
+                                <input type="text" placeholder="your Email">
+                                <button type="submit">Sign Up</button>
+                            </form>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                            <a href="#"><i class="fa fa-behance"></i></a>
+                        </div>
+                        <div class="footer-icon-img">
+                            <img src="img/footer-icon.png" alt="">
+                        </div>
+                        <div class="copyright">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/circle-progress.min.js"></script>
+    <script src="js/jquery.barfiller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+* Connection #0 to host localhost left intact
+</html>[root@dockdocker container ls
+CONTAINER ID   IMAGE                                COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+8f5859b4fdef   vivekyoganand/nginxbesports:sports   "nginx -g 'daemon of…"   7 minutes ago    Up 7 minutes    0.0.0.0:7070->80/tcp, :::7070->80/tcp   game
+092ad3432345   vivekyoganand/nginxbesports:sports   "nginx -g 'daemon of…"   15 minutes ago   Up 15 minutes   0.0.0.0:1234->80/tcp, :::1234->80/tcp   sports
+ef616a33d102   vivekyoganand/myyoga                 "/docker-entrypoint.…"   20 minutes ago   Up 20 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   xyz
+[root@docker ~]# docker info | head
+Client:
+ Context:    default
+ Debug Mode: false
+
+Server:
+ Containers: 3
+  Running: 3
+  Paused: 0
+  Stopped: 0
+ Images: 2
+[root@docker ~]# docker exec –it xyz /bin/bash
+Error: No such container: –it
+[root@docker ~]# docker ps
+CONTAINER ID   IMAGE                                COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+8f5859b4fdef   vivekyoganand/nginxbesports:sports   "nginx -g 'daemon of…"   26 minutes ago   Up 26 minutes   0.0.0.0:7070->80/tcp, :::7070->80/tcp   game
+092ad3432345   vivekyoganand/nginxbesports:sports   "nginx -g 'daemon of…"   35 minutes ago   Up 35 minutes   0.0.0.0:1234->80/tcp, :::1234->80/tcp   sports
+ef616a33d102   vivekyoganand/myyoga                 "/docker-entrypoint.…"   40 minutes ago   Up 40 minutes   0.0.0.0:8080->80/tcp, :::8080->80/tcp   xyz
+[root@docker ~]# docker exec -it xyz /bin/bash
+root@ef616a33d102:/# cd /usr/share/nginx/html/
+root@ef616a33d102:/usr/share/nginx/html# ls -ltr
+total 1300
+-rw-r--r-- 1 root root     615 Sep  7  2021 index.html
+-rw-r--r-- 1 root root     497 Sep  7  2021 50x.html
+-rw-rw-r-- 1 1000 1000 1315746 Sep 24  2021 YOOG.zip
+drwxr-xr-x 7 root root    4096 Sep 24  2021 free-yoga-website-template
+root@ef616a33d102:/usr/share/nginx/html# cd free-yoga-website-template
+root@ef616a33d102:/usr/share/nginx/html/free-yoga-website-template# ls -l
+
