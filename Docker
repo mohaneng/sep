@@ -1,0 +1,28 @@
+cd Downloads/
+ssh
+yes
+sudo su
+cd
+hostnamectl set-hostname docker
+yum install docker –y
+system status docker
+system start docker
+system status docker
+docker search mohan  TO SEARCH ANY FILE
+docker info | head
+docker pull mohan/yoga
+docker images
+docker run -itd  mohan/yoga –name yoga -p 80:80 error
+docker container ls  error
+docker run -itd  --name xyz -p 43:80 mohan/yoga
+docker container ls
+curl localhost:143
+netstat –tulpn
+docker ps
+docker run -itd  --name sports –net bridge –publish 8080:80  mohan/sports:sports 80 is a html ipaddress
+curl -kv loacalhost:8080 
+docker exec -it xyz /bin/bash
+cd /usr/share/nginx/html/
+ls-ltr
+cd free-yoga-website-template
+
